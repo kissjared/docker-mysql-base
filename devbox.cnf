@@ -1,0 +1,57 @@
+[mysqld]
+skip-host-cache
+skip-name-resolve
+
+key_buffer_size         = 256M
+sort_buffer_size        = 2M
+read_buffer_size        = 2M
+read_rnd_buffer_size    = 16M
+join_buffer_size        = 2M
+thread_cache_size       = 8
+query_cache_size        = 32M
+query_cache_limit       = 2M
+query_cache_min_res_unit = 2K
+thread_concurrency      = 32
+
+table_open_cache        = 512
+open_files_limit        = 10240
+back_log                = 600
+max_connections         = 5000
+max_connect_errors      = 6000
+external-locking        = FALSE
+
+max_allowed_packet      = 1024M
+default-storage-engine  = MYISAM
+thread_stack            = 192K
+transaction_isolation   = READ-COMMITTED
+tmp_table_size          = 256M
+max_heap_table_size     = 512M
+
+bulk_insert_buffer_size = 64M
+long_query_time         = 2
+slow_query_log
+slow_query_log_file     = /var/log/mysql/slow_query.log
+
+innodb_additional_mem_pool_size = 16M
+innodb_buffer_pool_size = 512M
+innodb_data_file_path = ibdata1:128M:autoextend
+innodb_file_io_threads  = 4
+innodb_thread_concurrency = 8
+innodb_flush_log_at_trx_commit = 2
+innodb_log_buffer_size  = 16M
+innodb_log_file_size    = 128M
+innodb_log_files_in_group = 3
+innodb_max_dirty_pages_pct = 90
+innodb_lock_wait_timeout = 120
+innodb_file_per_table   = 1
+innodb_flush_method = O_DIRECT
+
+[mysqldump]
+quick
+max_allowed_packet      = 64M
+
+[myisamchk]
+key_buffer_size = 256M
+sort_buffer_size = 256M
+read_buffer = 2M
+write_buffer = 2M
