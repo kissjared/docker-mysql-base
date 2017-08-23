@@ -29,6 +29,7 @@ Step 7/7 : CMD mysqld
  ---> 71e95a7025d8
 Successfully built 71e95a7025d8
 Successfully tagged docker-mysql-base:latest
+```
 
 ## To Run
 
