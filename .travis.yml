@@ -1,0 +1,18 @@
+language: bash
+services: docker
+
+env:
+  - VERSION=latest
+
+before_script:
+  - env | sort
+  - cd "$VERSION"
+  - image="mysql:$VERSION"
+
+script:
+  - travis_retry docker build -t "$image" .
+  - ./test/run.sh "$image"
+
+after_script:
+  - docker images
+
