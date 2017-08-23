@@ -1,4 +1,5 @@
 # WBY Docker Base Image for MySQL5.6
+[![Build Status](https://travis-ci.org/kissjared/docker-mysql-base.svg?branch=master)](https://travis-ci.org/kissjared/docker-mysql-base)
 
 Github: https://github.com/kissjared/docker-mysql-base.git
 
