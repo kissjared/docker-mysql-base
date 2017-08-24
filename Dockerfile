@@ -4,6 +4,8 @@ MAINTAINER weiboyi lijie1@weiboyi.com
 
 COPY ./devbox.cnf /etc/mysql/mysql.conf.d/
 
+COPY docker-entrypoint.sh /usr/local/bin/
+
 VOLUME /var/lib/mysql
 
 ENTRYPOINT ["docker-entrypoint.sh"]
