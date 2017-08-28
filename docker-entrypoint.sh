@@ -94,6 +94,7 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		pid="$!"
 
 		mysql=( mysql --protocol=socket -uroot -hlocalhost --socket="${SOCKET}" )
+		mysql_import=( mysql --protocol=socket -uroot -hlocalhost --socket="${SOCKET}" --force )
 
 		for i in {30..0}; do
 			if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
@@ -143,12 +144,14 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 
 		if [ ! -z "$MYSQL_ROOT_PASSWORD" ]; then
 			mysql+=( -p"${MYSQL_ROOT_PASSWORD}" )
+			mysql_import+=( -p"${MYSQL_ROOT_PASSWORD}" )
 		fi
 
 		file_env 'MYSQL_DATABASE'
 		if [ "$MYSQL_DATABASE" ]; then
 			echo "CREATE DATABASE IF NOT EXISTS \`$MYSQL_DATABASE\` ;" | "${mysql[@]}"
 			mysql+=( "$MYSQL_DATABASE" )
+			mysql_import+=( "$MYSQL_DATABASE" )
 		fi
 
 		file_env 'MYSQL_USER'
@@ -167,8 +170,8 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		for f in /docker-entrypoint-initdb.d/*; do
 			case "$f" in
 				*.sh)     echo "$0: running $f"; . "$f" ;;
-				*.sql)    echo "$0: running $f"; "${mysql[@]}" < "$f"; echo ;;
-				*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | "${mysql[@]}"; echo ;;
+				*.sql)    echo "$0: running $f"; "${mysql_import[@]}" < "$f"; echo ;;
+				*.sql.gz) echo "$0: running $f"; gunzip -c "$f" | "${mysql_import[@]}"; echo ;;
 				*)        echo "$0: ignoring $f" ;;
 			esac
 			echo
